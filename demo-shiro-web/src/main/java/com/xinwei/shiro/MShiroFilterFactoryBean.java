@@ -17,7 +17,6 @@ import java.util.HashSet;
 import java.util.Set;
 /**
  * 继承 ShiroFilterFactoryBean 处理拦截资源文件问题。
- *
  * @author   单红宇(365384722)
  * @myblog  http://blog.csdn.net/catoop/
  * @create    2016年3月8日
