@@ -12,18 +12,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.data.redis.core.RedisTemplate;
-
 import com.xinwei.spring.boot.autoconfigure.shiro.ShiroProperties;
-
-
 
 @Configuration
 public class ShiroConfiguration {
-	  @Autowired
-	  public ShiroProperties properties;
-
-
-
+	@Autowired
+  	public ShiroProperties properties;
 	/**
 	 *
 	 * 注释掉该方法时 ，shiro的登录会话session由ehcache保持。
@@ -38,9 +32,6 @@ public class ShiroConfiguration {
 		customShiroSessionDAO.setShiroSessionRepository(jedisShiroSessionRepository);
 		return customShiroSessionDAO;
 	}
-	
-	 
-	
 	@Bean
 	@DependsOn(value = { "objectRedisTemplate" })
 	public JedisShiroSessionRepository jedisShiroSessionRepository(RedisTemplate<String, Object> objectRedisTemplate) {
@@ -48,30 +39,23 @@ public class ShiroConfiguration {
 		jedisShiroSessionRepository.setObjectRedisTemplate(objectRedisTemplate);
 		return jedisShiroSessionRepository;
 	}
-
-	 
 	 /**
      * (基于内存的)用户授权信息Cache
      */
     @Bean(name = "shiroCacheManager")
     @ConditionalOnMissingBean(name = "shiroCacheManager")
-   // @ConditionalOnMissingClass(value = {"org.apache.shiro.cache.ehcache.EhCacheManager"})
+   	//@ConditionalOnMissingClass(value = {"org.apache.shiro.cache.ehcache.EhCacheManager"})
     public CacheManager memoryCacheManager() {
-
     	return new MemoryConstrainedCacheManager();
     }
-    
-
     /**
      * (基于redis的)用户授权信息Cache
      */
     @Bean(name = "shiroCacheManager")
     @ConditionalOnMissingBean(name="shiroCacheManager")
     public CacheManager redisCacheManager(RedisTemplate<String, Object> redisTemplate) {
-
         return new RedisCacheManager(redisTemplate);
     }
-    
     /**
      * (基于ehcache的)用户授权信息Cache
      */
@@ -86,9 +70,4 @@ public class ShiroConfiguration {
         }
         return ehCacheManager;
     }
-
-
-
-
-
 }

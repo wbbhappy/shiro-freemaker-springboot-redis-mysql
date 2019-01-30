@@ -87,5 +87,4 @@ public class StringUtil {
 
 		return cb.array();
 	}
-
 }

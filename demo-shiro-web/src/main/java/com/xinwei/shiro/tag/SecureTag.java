@@ -7,11 +7,6 @@ import org.apache.shiro.subject.Subject;
 import java.io.IOException;
 import java.util.Map;
 
-/**
- * <p>
- * Equivalent to {@link org.apache.shiro.web.tags.SecureTag}
- * </p>
- */
 public abstract class SecureTag implements TemplateDirectiveModel {
 	public void execute(Environment env, Map params, TemplateModel[] loopVars, TemplateDirectiveBody body)
 			throws TemplateException, IOException {
@@ -24,11 +19,9 @@ public abstract class SecureTag implements TemplateDirectiveModel {
 
 	protected String getParam(Map params, String name) {
 		Object value = params.get(name);
-
 		if (value instanceof SimpleScalar) {
 			return ((SimpleScalar) value).getAsString();
 		}
-
 		return null;
 	}
 

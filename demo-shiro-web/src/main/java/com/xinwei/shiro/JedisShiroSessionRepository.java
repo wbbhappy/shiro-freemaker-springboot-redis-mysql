@@ -1,26 +1,22 @@
 package com.xinwei.shiro;
 
+import com.xinwei.common.RedisUtil;
+import com.xinwei.utils.Constants;
+import org.apache.shiro.session.Session;
+import org.apache.shiro.session.mgt.SimpleSession;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.data.redis.core.RedisTemplate;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.apache.shiro.session.Session;
-import org.apache.shiro.session.mgt.SimpleSession;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.data.redis.core.RedisTemplate;
-
-import com.xinwei.common.RedisUtil;
-import com.xinwei.utils.Constants;
-
 public class JedisShiroSessionRepository implements ShiroSessionRepository {
 	private static Logger logger = LoggerFactory.getLogger(JedisShiroSessionRepository.class);
-
 	private RedisTemplate<String, Object> objectRedisTemplate;
 
-	@Override
 	public void saveSession(Session session) {
 		if (session == null || session.getId() == null) {
 			logger.error("session或者session id为空");
@@ -34,7 +30,6 @@ public class JedisShiroSessionRepository implements ShiroSessionRepository {
 		RedisUtil.set(objectRedisTemplate, session_key, session, timeOut);
 	}
 
-	@Override
 	public void deleteSession(Serializable sessionId) {
 		logger.debug("删除session:" + sessionId);
 		if (sessionId == null) {
@@ -46,7 +41,6 @@ public class JedisShiroSessionRepository implements ShiroSessionRepository {
 		//TODO 更新数据库在线状态
 	}
 
-	@Override
 	public Session getSession(Serializable sessionId) {
 		// logger.debug("取得session:" + sessionId);
 		if (sessionId == null) {
@@ -58,11 +52,9 @@ public class JedisShiroSessionRepository implements ShiroSessionRepository {
 		// return null;
 		// }
 		Session session = (SimpleSession) RedisUtil.get(objectRedisTemplate, session_key);
-
 		return session;
 	}
 
-	@Override
 	public Collection<Session> getAllSessions() {
 		logger.debug("取得所有session");
 		Set<Session> sessions = new HashSet<Session>();
@@ -93,5 +85,4 @@ public class JedisShiroSessionRepository implements ShiroSessionRepository {
 	public void setObjectRedisTemplate(RedisTemplate<String, Object> objectRedisTemplate) {
 		this.objectRedisTemplate = objectRedisTemplate;
 	}
-
 }

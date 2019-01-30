@@ -75,7 +75,6 @@ public class GFString {
 			t = "0" + t;
 		}
 		return t;
-
 	}
 
 	/**
@@ -90,14 +89,12 @@ public class GFString {
 		String temp = null;
 		byte srcAscii;
 		byte left = 0;
-
 		if (src != null && src.length() % 2 == 0) {
 			result = "";
 			b = new int[src.length() / 2];
 			temp = src + "0";
 			for (int i = 0, j = 0, k = 0; i < temp.length() - 2; i += 2, j++) {
 				b[j] = Integer.parseInt(temp.substring(i, i + 2), 16);
-
 				k = j % 7;
 				srcAscii = (byte) (((b[j] << k) & 0x7F) | left);
 				result += (char) srcAscii;
@@ -162,7 +159,6 @@ public class GFString {
 	public static String byte2hex(byte b) {
 		String hs = "";
 		String stmp = "";
-
 		{
 			stmp = (java.lang.Integer.toHexString(b & 0XFF));
 			if (stmp.length() == 1) {
@@ -251,7 +247,6 @@ public class GFString {
 			} else {
 				j = abt[2 * p] - 'A' + 0x0a;
 			}
-
 			if ((abt[2 * p + 1] >= '0') && (abt[2 * p + 1] <= '9')) {
 				k = abt[2 * p + 1] - '0';
 			} else if ((abt[2 * p + 1] >= 'a') && (abt[2 * p + 1] <= 'z')) {
@@ -259,7 +254,6 @@ public class GFString {
 			} else {
 				k = abt[2 * p + 1] - 'A' + 0x0a;
 			}
-
 			int a = (j << 4) + k;
 			byte b = (byte) a;
 			bbt[p] = b;

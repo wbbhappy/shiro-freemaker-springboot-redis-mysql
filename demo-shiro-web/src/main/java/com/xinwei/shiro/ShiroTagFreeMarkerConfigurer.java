@@ -1,16 +1,12 @@
 package com.xinwei.shiro;
 
+import com.xinwei.shiro.tag.ShiroTags;
+import freemarker.template.TemplateException;
+import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 import java.io.IOException;
 
-import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
-
-import com.xinwei.shiro.tag.ShiroTags;
-
-import freemarker.template.TemplateException;
-
-public class ShiroTagFreeMarkerConfigurer extends FreeMarkerConfigurer{  
-    @Override  
-    public void afterPropertiesSet() throws IOException, TemplateException {  
+public class ShiroTagFreeMarkerConfigurer extends FreeMarkerConfigurer{
+    public void afterPropertiesSet() throws IOException, TemplateException {
         super.afterPropertiesSet();  
         this.getConfiguration().setSharedVariable("shiro", new ShiroTags());  
     }

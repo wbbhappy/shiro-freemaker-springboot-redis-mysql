@@ -1,23 +1,11 @@
-/**
- * Copyright (c) 2005-2012 springside.org.cn
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- */
 package com.xinwei.utils;
-
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.Assert;
-
+import java.lang.reflect.*;
 /**
  * 反射工具类.
  * 
@@ -27,11 +15,8 @@ import org.springframework.util.Assert;
  */
 public class Reflections {
 	private static final String SETTER_PREFIX = "set";
-
 	private static final String GETTER_PREFIX = "get";
-
 	private static final String CGLIB_CLASS_SEPARATOR = "$$";
-
 	private static Logger logger = LoggerFactory.getLogger(Reflections.class);
 
 	/**
@@ -55,11 +40,9 @@ public class Reflections {
 	 */
 	public static Object getFieldValue(final Object obj, final String fieldName) {
 		Field field = getAccessibleField(obj, fieldName);
-
 		if (field == null) {
 			throw new IllegalArgumentException("Could not find field [" + fieldName + "] on target [" + obj + "]");
 		}
-
 		Object result = null;
 		try {
 			result = field.get(obj);
@@ -74,11 +57,9 @@ public class Reflections {
 	 */
 	public static void setFieldValue(final Object obj, final String fieldName, final Object value) {
 		Field field = getAccessibleField(obj, fieldName);
-
 		if (field == null) {
 			throw new IllegalArgumentException("Could not find field [" + fieldName + "] on target [" + obj + "]");
 		}
-
 		try {
 			field.set(obj, value);
 		} catch (IllegalAccessException e) {
@@ -97,7 +78,6 @@ public class Reflections {
 		if (method == null) {
 			throw new IllegalArgumentException("Could not find method [" + methodName + "] on target [" + obj + "]");
 		}
-
 		try {
 			return method.invoke(obj, args);
 		} catch (Exception e) {
@@ -115,7 +95,6 @@ public class Reflections {
 		if (method == null) {
 			throw new IllegalArgumentException("Could not find method [" + methodName + "] on target [" + obj + "]");
 		}
-
 		try {
 			return method.invoke(obj, args);
 		} catch (Exception e) {
@@ -236,16 +215,12 @@ public class Reflections {
 	 */
 	@SuppressWarnings("rawtypes")
 	public static Class getClassGenricType(final Class clazz, final int index) {
-
 		Type genType = clazz.getGenericSuperclass();
-
 		if (!(genType instanceof ParameterizedType)) {
 			logger.warn(clazz.getSimpleName() + "'s superclass not ParameterizedType");
 			return Object.class;
 		}
-
 		Type[] params = ((ParameterizedType) genType).getActualTypeArguments();
-
 		if (index >= params.length || index < 0) {
 			logger.warn("Index: " + index + ", Size of " + clazz.getSimpleName() + "'s Parameterized Type: "
 					+ params.length);
@@ -255,7 +230,6 @@ public class Reflections {
 			logger.warn(clazz.getSimpleName() + " not set the actual class on superclass generic parameter");
 			return Object.class;
 		}
-
 		return (Class) params[index];
 	}
 
@@ -270,7 +244,6 @@ public class Reflections {
 			}
 		}
 		return clazz;
-
 	}
 
 	/**

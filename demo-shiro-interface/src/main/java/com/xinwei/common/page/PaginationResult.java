@@ -2,7 +2,6 @@ package com.xinwei.common.page;
 
 import java.io.Serializable;
 import java.util.List;
-
 /**
  * 
  * <b>类名</b>：PaginationResult.java<br>
@@ -19,15 +18,10 @@ import java.util.List;
  * @param <T>
  */
 public class PaginationResult<T> implements Serializable{
-
-	
-
 	/** serialVersionUID */
 	private static final long serialVersionUID = 1L;
 
-
 	public PaginationResult() {
-		
 	}
 
 	/**
@@ -56,50 +50,25 @@ public class PaginationResult<T> implements Serializable{
 	public int getDraw() {
 		return draw;
 	}
-
-	
 	public void setDraw(int draw) {
 		this.draw = draw;
 	}
-
-	
 	public long getRecordsFiltered() {
 		return recordsFiltered;
 	}
-
-	
 	public void setRecordsFiltered(long recordsFiltered) {
 		this.recordsFiltered = recordsFiltered;
 	}
-
 	public long getRecordsTotal() {
 		return recordsTotal;
 	}
-
-	
 	public void setRecordsTotal(long recordsTotal) {
 		this.recordsTotal = recordsTotal;
 	}
-
 	public List<T> getData() {
 		return data;
 	}
-
-	
 	public void setData(List<T> data) {
 		this.data = data;
 	}
-
-	
-
-	
-
-	
-
-
-	
-	
-
-	
-
 }

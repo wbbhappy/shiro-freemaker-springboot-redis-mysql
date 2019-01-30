@@ -1,7 +1,6 @@
 package com.xinwei.spring.boot.autoconfigure.shiro.annotation;
 
 import java.lang.annotation.*;
-
 /**
  * 获取Shiro当前用户
  * @author 张劲航

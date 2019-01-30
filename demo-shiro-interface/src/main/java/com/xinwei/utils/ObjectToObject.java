@@ -8,7 +8,6 @@ public class ObjectToObject {
             return;
         if (!origin.getClass().equals(destination.getClass()))
             return;
- 
         Field[] fields = origin.getClass().getDeclaredFields();
         for (int i = 0; i < fields.length; i++) {
             try {
@@ -22,5 +21,4 @@ public class ObjectToObject {
             }
         }
     }
-	
 }

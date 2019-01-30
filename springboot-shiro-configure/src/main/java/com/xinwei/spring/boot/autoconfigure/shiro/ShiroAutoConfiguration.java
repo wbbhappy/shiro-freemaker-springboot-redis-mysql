@@ -43,20 +43,13 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.context.annotation.Import;
-
 import com.xinwei.spring.boot.autoconfigure.shiro.annotation.EnableShiroWebSupport;
-
 import javax.servlet.Filter;
 import javax.sql.DataSource;
 import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-/**
- * This guy is lazy, nothing left.
- *
- * @author John Zhang
- */
 @Configuration
 @EnableShiroWebSupport
 @ConditionalOnWebApplication
@@ -67,32 +60,22 @@ import java.util.Map;
         ShiroJdbcRealmProperties.class
 })
 public class ShiroAutoConfiguration {
-
     @Autowired
     private ShiroProperties properties;
-
     @Autowired
     private ShiroSignInProperties signInProperties;
-
     @Autowired
     private ShiroCookieProperties shiroCookieProperties;
-
     @Autowired
     private ShiroSessionProperties shiroSessionProperties;
-
     @Autowired
     private ShiroJdbcRealmProperties shiroJdbcRealmProperties;
-
     @Autowired(required = false)
     private CipherService cipherService;
-
     @Autowired(required = false)
     private Serializer<PrincipalCollection> serializer;
-
     @Autowired(required = false)
     private Collection<SessionListener> listeners;
-    
-    
 
     @Bean(name = "mainRealm")
     @ConditionalOnMissingBean(name = "mainRealm")
@@ -128,7 +111,6 @@ public class ShiroAutoConfiguration {
         }
         return realm;
     }
-
 
     @Bean
     @ConditionalOnMissingBean(Cookie.class)
@@ -210,7 +192,6 @@ public class ShiroAutoConfiguration {
         DefaultWebSessionManager sessionManager = new DefaultWebSessionManager();
         sessionManager.setCacheManager(cacheManager);
         sessionManager.setGlobalSessionTimeout(shiroSessionProperties.getGlobalSessionTimeout());
-        
         sessionManager.setSessionDAO(sessionDAO);
         sessionManager.setSessionListeners(listeners);
         return sessionManager;
@@ -253,7 +234,6 @@ public class ShiroAutoConfiguration {
         } else {
         	filterMap.put("authc", formSignInFilter());
         }
-
         shiroFilter.setFilters(filterMap);
         shiroFilter.setFilterChainDefinitionMap(properties.getFilterChainDefinitions());
         return shiroFilter;
@@ -271,5 +251,4 @@ public class ShiroAutoConfiguration {
         filterRegistration.addUrlPatterns("/*");
         return filterRegistration;
     }
-
 }

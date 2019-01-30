@@ -1,12 +1,10 @@
 package com.xinwei.utils;
 
+import com.google.common.collect.Maps;
+import org.apache.commons.lang3.StringUtils;
 import java.util.Date;
 import java.util.Map;
 import java.util.Map.Entry;
-
-import org.apache.commons.lang3.StringUtils;
-
-import com.google.common.collect.Maps;
 
 public class SearchFilter {
 
@@ -17,13 +15,10 @@ public class SearchFilter {
 	/** 属性数据类型. */
 	public enum PropertyType {
 		S(String.class), I(Integer.class), L(Long.class), N(Double.class), D(Date.class), B(Boolean.class);
-
 		private Class<?> clazz;
-
 		private PropertyType(Class<?> clazz) {
 			this.clazz = clazz;
 		}
-
 		public Class<?> getValue() {
 			return clazz;
 		}
@@ -45,7 +40,6 @@ public class SearchFilter {
 	@SuppressWarnings("rawtypes")
 	public static Map<String, SearchFilter> parse(Map<String, Object> searchParams) {
 		Map<String, SearchFilter> filters = Maps.newHashMap();
-
 		for (Entry<String, Object> entry : searchParams.entrySet()) {
 			// 过滤掉空值
 			String key = entry.getKey();
@@ -53,7 +47,6 @@ public class SearchFilter {
 			if (StringUtils.isBlank((String) value)) {
 				continue;
 			}
-
 			// 拆分operator与filedAttribute
 			String[] names = StringUtils.split(key, "_");
 			if (names.length != 2) {

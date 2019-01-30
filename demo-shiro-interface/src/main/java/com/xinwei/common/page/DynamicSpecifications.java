@@ -1,29 +1,20 @@
 package com.xinwei.common.page;
 
-import java.util.Collection;
-import java.util.List;
-
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Path;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
-
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.data.jpa.domain.Specification;
-
 import com.google.common.collect.Lists;
 import com.xinwei.utils.Collections3;
 import com.xinwei.utils.SearchFilter;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.data.jpa.domain.Specification;
+import javax.persistence.criteria.*;
+import java.util.Collection;
+import java.util.List;
 
 public class DynamicSpecifications {
 	public static <T> Specification<T> bySearchFilter(final Collection<SearchFilter> filters, final Class<T> clazz) {
 		return new Specification<T>() {
 			@SuppressWarnings({ "rawtypes", "unchecked" })
-			@Override
 			public Predicate toPredicate(Root<T> root, CriteriaQuery<?> query, CriteriaBuilder builder) {
 				if (Collections3.isNotEmpty(filters)) {
-
 					List<Predicate> predicates = Lists.newArrayList();
 					for (SearchFilter filter : filters) {
 						// nested path translate, 如Task的名为"user.name"的filedName, 转换为Task.user.name属性
@@ -32,7 +23,6 @@ public class DynamicSpecifications {
 						for (int i = 1; i < names.length; i++) {
 							expression = expression.get(names[i]);
 						}
-
 						// logic operator
 						switch (filter.operator) {
 						case NEQ:
@@ -64,26 +54,21 @@ public class DynamicSpecifications {
 							break;
 						}
 					}
-
 					// 将所有条件用 and 联合起来
 					if (predicates.size() > 0) {
 						return builder.and(predicates.toArray(new Predicate[predicates.size()]));
 					} 
 				}
-
 				return builder.conjunction();
 			}
 		};
 	}
 	
-	
 	public static <T> Specification<T> bySearchFilterOr(final Collection<SearchFilter> filters, final Class<T> clazz) {
 		return new Specification<T>() {
 			@SuppressWarnings({ "rawtypes", "unchecked" })
-			@Override
 			public Predicate toPredicate(Root<T> root, CriteriaQuery<?> query, CriteriaBuilder builder) {
 				if (Collections3.isNotEmpty(filters)) {
-
 					List<Predicate> predicates = Lists.newArrayList();
 					for (SearchFilter filter : filters) {
 						// nested path translate, 如Task的名为"user.name"的filedName, 转换为Task.user.name属性
@@ -92,7 +77,6 @@ public class DynamicSpecifications {
 						for (int i = 1; i < names.length; i++) {
 							expression = expression.get(names[i]);
 						}
-
 						// logic operator
 						switch (filter.operator) {
 						case NEQ:
@@ -124,13 +108,11 @@ public class DynamicSpecifications {
 							break;
 						}
 					}
-
 					// 将所有条件用 or 联合起来
 					if (predicates.size() > 0) {
 						return builder.or(predicates.toArray(new Predicate[predicates.size()]));
 					} 
 				}
-
 				return builder.conjunction();
 			}
 		};

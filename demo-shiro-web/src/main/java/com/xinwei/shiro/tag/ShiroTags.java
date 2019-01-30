@@ -2,13 +2,6 @@ package com.xinwei.shiro.tag;
 
 import freemarker.template.SimpleHash;
 
-/**
- * Shortcut for injecting the tags into Freemarker
- *
- * <p>
- * Usage: cfg.setSharedVeriable("shiro", new ShiroTags());
- * </p>
- */
 public class ShiroTags extends SimpleHash {
 	public ShiroTags() {
 		put("authenticated", new AuthenticatedTag());

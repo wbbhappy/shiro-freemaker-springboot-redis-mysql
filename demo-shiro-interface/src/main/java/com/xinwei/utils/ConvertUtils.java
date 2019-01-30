@@ -1,13 +1,12 @@
 package com.xinwei.utils;
 
+import org.apache.commons.beanutils.PropertyUtils;
+import org.apache.commons.beanutils.converters.DateConverter;
+import org.apache.commons.lang3.StringUtils;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
-
-import org.apache.commons.beanutils.PropertyUtils;
-import org.apache.commons.beanutils.converters.DateConverter;
-import org.apache.commons.lang3.StringUtils;
 
 public class ConvertUtils {
 
@@ -17,14 +16,12 @@ public class ConvertUtils {
 
 	/**
 	 * 提取集合中的对象的属性(通过getter函数), 组合成List.
-	 * 
 	 * @param collection 来源集合.
 	 * @param propertyName 要提取的属性名.
 	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public static List convertElementPropertyToList(final Collection collection, final String propertyName) {
 		List list = new ArrayList();
-
 		try {
 			for (Object obj : collection) {
 				list.add(PropertyUtils.getProperty(obj, propertyName));
@@ -32,7 +29,6 @@ public class ConvertUtils {
 		} catch (Exception e) {
 			throw ReflectionUtils.convertReflectionExceptionToUnchecked(e);
 		}
-
 		return list;
 	}
 

@@ -1,20 +1,17 @@
 package com.xinwei.utils;
 
-import java.sql.Connection;
-import java.sql.SQLException;
-
-import javax.sql.DataSource;
-
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.Hibernate;
 import org.hibernate.dialect.H2Dialect;
 import org.hibernate.dialect.MySQL5InnoDBDialect;
 import org.hibernate.dialect.Oracle10gDialect;
+import javax.sql.DataSource;
+import java.sql.Connection;
+import java.sql.SQLException;
 
 public class Hibernates {
 
 	public static final String DATETIME_TYPE = "org.jadira.usertype.dateandtime.joda.PersistentDateTime";
-
 	/**
 	 * Initialize the lazy property value.
 	 * 
@@ -24,14 +21,12 @@ public class Hibernates {
 	public static void initLazyProperty(Object proxyedPropertyValue) {
 		Hibernate.initialize(proxyedPropertyValue);
 	}
-
 	/**
 	 * 从DataSoure中取出connection, 根据connection的metadata中的jdbcUrl判断Dialect类型.
 	 * 仅支持Oracle, H2, MySql，如需更多数据库类型，请仿照此类自行编写。
 	 */
 	public static String getDialect(DataSource dataSource) {
 		String jdbcUrl = getJdbcUrlFromDataSource(dataSource);
-
 		// 根据jdbc url判断dialect
 		if (StringUtils.contains(jdbcUrl, ":h2:")) {
 			return H2Dialect.class.getName();

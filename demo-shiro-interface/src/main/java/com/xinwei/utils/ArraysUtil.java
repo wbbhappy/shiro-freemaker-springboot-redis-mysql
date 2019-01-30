@@ -3,7 +3,6 @@ package com.xinwei.utils;
 import java.util.BitSet;
 
 public class ArraysUtil {
-
 	/**
 	 * Description: 截取byte数组中的一段作为结果返回
 	 * @Version1.0 2011-4-17 上午10:18:39 laojiang created
@@ -217,5 +216,4 @@ public class ArraysUtil {
     	short result = (short) s;
     	return result;
     }
-
 }

@@ -1,19 +1,16 @@
 package com.xinwei.common.page;
 
-import java.util.Map;
-
+import com.xinwei.utils.ReflectionUtils;
+import com.xinwei.utils.SearchFilter;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.jpa.domain.Specification;
-
-import com.xinwei.utils.ReflectionUtils;
-import com.xinwei.utils.SearchFilter;
+import java.util.Map;
 
 public class SpecificationUtil<T> {
 
 	protected Class<T> entityClass;
-	
 
 	public SpecificationUtil() {
 		this.entityClass = ReflectionUtils.getSuperClassGenricType(getClass());
@@ -45,10 +42,6 @@ public class SpecificationUtil<T> {
 		}else{
 			  spec = DynamicSpecifications.bySearchFilter(filters.values(), ReflectionUtils.getSuperClassGenricType(getClass()));
 		}
-		
 		return spec;
 	}
-	
-	 
-	
 }

@@ -1,10 +1,9 @@
 package com.xinwei.common;
 
-import java.util.concurrent.TimeUnit;
-
 import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
+import java.util.concurrent.TimeUnit;
 
 public class RedisUtil<T> {
 

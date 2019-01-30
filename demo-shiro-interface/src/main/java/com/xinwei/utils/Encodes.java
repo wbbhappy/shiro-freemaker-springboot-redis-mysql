@@ -1,21 +1,14 @@
-/**
- * Copyright (c) 2005-2012 springside.org.cn
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- */
 package com.xinwei.utils;
-
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
-import java.net.URLEncoder;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 
 import org.apache.commons.codec.DecoderException;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.lang3.StringEscapeUtils;
-
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 /**
  * 封装各种格式的编码解码工具类.
  * 
@@ -124,7 +117,6 @@ public class Encodes {
 	 * URL 解码, Encode默认为UTF-8. 
 	 */
 	public static String urlDecode(String part) {
-
 		try {
 			return URLDecoder.decode(part, DEFAULT_URL_ENCODING);
 		} catch (UnsupportedEncodingException e) {
@@ -133,26 +125,18 @@ public class Encodes {
 	}
 	
 	public static String md5(String rawPass, Object salt) {
-		
 		return md5(rawPass, salt, 1);
-
 	}
-	
 
-	private static String mergePasswordAndSalt(String password, Object salt,
-			boolean strict) {
+	private static String mergePasswordAndSalt(String password, Object salt, boolean strict) {
 		if (password == null) {
 			password = "";
 		}
-
 		if (strict && (salt != null)) {
-			if ((salt.toString().lastIndexOf("{") != -1)
-					|| (salt.toString().lastIndexOf("}") != -1)) {
-				throw new IllegalArgumentException(
-						"Cannot use { or } in salt.toString()");
+			if ((salt.toString().lastIndexOf("{") != -1) || (salt.toString().lastIndexOf("}") != -1)) {
+				throw new IllegalArgumentException(	"Cannot use { or } in salt.toString()");
 			}
 		}
-
 		if ((salt == null) || "".equals(salt)) {
 			return password;
 		} else {
@@ -174,6 +158,4 @@ public class Encodes {
 		}
 		return "";
 	}
-	
-	
 }

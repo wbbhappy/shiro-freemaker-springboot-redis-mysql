@@ -1,7 +1,6 @@
 package com.xinwei.shiro;
 
 import java.util.Properties;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.freemarker.FreeMarkerProperties;
@@ -10,9 +9,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.ui.freemarker.FreeMarkerConfigurationFactory;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 
-/**
- * TODO add description
- */
 @Configuration
 // @ConditionalOnClass({ FreeMarkerProperties.class })
 @AutoConfigureAfter(FreeMarkerProperties.class)
@@ -38,6 +34,4 @@ public class FreemarkerConfiguration {
 		applyProperties(configurer);
 		return configurer;
 	}
-
-
 }

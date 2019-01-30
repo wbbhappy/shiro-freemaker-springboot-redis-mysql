@@ -1,16 +1,10 @@
 package com.xinwei.utils;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
-
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.Assert;
-
+import java.lang.reflect.*;
 /**
  * 反射工具类.
  * 
@@ -51,11 +45,9 @@ public class ReflectionUtils {
 	 */
 	public static Object getFieldValue(final Object obj, final String fieldName) {
 		Field field = getAccessibleField(obj, fieldName);
-
 		if (field == null) {
 			throw new IllegalArgumentException("Could not find field [" + fieldName + "] on target [" + obj + "]");
 		}
-
 		Object result = null;
 		try {
 			result = field.get(obj);
@@ -70,11 +62,9 @@ public class ReflectionUtils {
 	 */
 	public static void setFieldValue(final Object obj, final String fieldName, final Object value) {
 		Field field = getAccessibleField(obj, fieldName);
-
 		if (field == null) {
 			throw new IllegalArgumentException("Could not find field [" + fieldName + "] on target [" + obj + "]");
 		}
-
 		try {
 			field.set(obj, value);
 		} catch (IllegalAccessException e) {
@@ -112,7 +102,6 @@ public class ReflectionUtils {
 		if (method == null) {
 			throw new IllegalArgumentException("Could not find method [" + methodName + "] on target [" + obj + "]");
 		}
-
 		try {
 			return method.invoke(obj, args);
 		} catch (Exception e) {
@@ -129,15 +118,11 @@ public class ReflectionUtils {
 	public static Method getAccessibleMethod(final Object obj, final String methodName,
 			final Class<?>... parameterTypes) {
 		Assert.notNull(obj, "object不能为空");
-
 		for (Class<?> superClass = obj.getClass(); superClass != Object.class; superClass = superClass.getSuperclass()) {
 			try {
 				Method method = superClass.getDeclaredMethod(methodName, parameterTypes);
-
 				method.setAccessible(true);
-
 				return method;
-
 			} catch (NoSuchMethodException e) {//NOSONAR
 				// Method不在当前类定义,继续向上转型
 			}
@@ -171,16 +156,12 @@ public class ReflectionUtils {
 	 */
 	@SuppressWarnings("rawtypes")
 	public static Class getSuperClassGenricType(final Class clazz, final int index) {
-
 		Type genType = clazz.getGenericSuperclass();
-
 		if (!(genType instanceof ParameterizedType)) {
 			logger.warn(clazz.getSimpleName() + "'s superclass not ParameterizedType");
 			return Object.class;
 		}
-
 		Type[] params = ((ParameterizedType) genType).getActualTypeArguments();
-
 		if (index >= params.length || index < 0) {
 			logger.warn("Index: " + index + ", Size of " + clazz.getSimpleName() + "'s Parameterized Type: "
 					+ params.length);
@@ -190,7 +171,6 @@ public class ReflectionUtils {
 			logger.warn(clazz.getSimpleName() + " not set the actual class on superclass generic parameter");
 			return Object.class;
 		}
-
 		return (Class) params[index];
 	}
 
